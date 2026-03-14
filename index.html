@@ -28,12 +28,27 @@
     <script>
       const modelViewer = document.querySelector("model-viewer");
 
-      // AR moduna geçildiğinde animasyonu zorla oynatır
-      modelViewer.addEventListener("ar-status", (event) => {
-        if (event.detail.status === "object-placed") {
+    <script>
+      const modelViewer = document.querySelector("model-viewer");
+
+      // AR moduna geçişte ve sonrasında her 100ms'de bir oynatmayı zorla
+      setInterval(() => {
+        if (modelViewer.paused) {
           modelViewer.play();
         }
+      }, 100);
+
+      // İlk yüklemede oynat
+      modelViewer.addEventListener("load", () => {
+        modelViewer.play();
       });
+
+      // AR'a geçiş durumlarını takip et (Log için, istersen silebilirsin)
+      modelViewer.addEventListener("ar-status", (event) => {
+        console.log("AR Durumu:", event.detail.status);
+        modelViewer.play();
+      });
+    </script>
 
       modelViewer.addEventListener("load", () => {
         modelViewer.play();
