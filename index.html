@@ -8,9 +8,10 @@
     <link type="text/css" href="./styles.css" rel="stylesheet"/>
   </head>
   <body>
-    <!-- <model-viewer> HTML element -->
-<model-viewer src="elf1.glb" scale="0.1 0.1 0.1" orientation="0deg 90deg 0deg" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" autoplay animation-name="*">
+    <model-viewer src="elf1.glb" scale="0.1 0.1 0.1" orientation="0deg 90deg 0deg" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" autoplay animation-name="*">
+      <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
+      </div>
       <button slot="ar-button" id="ar-button">
           <font dir="auto" style="vertical-align: inherit;">
               <font dir="auto" style="vertical-align: inherit;">
@@ -23,13 +24,12 @@
       </div>
     </model-viewer>  
     <script src="script.js"></script>
-    <!-- Loads <model-viewer> for browsers: -->
-   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <script>
-  const modelViewer = document.querySelector("model-viewer");
-  modelViewer.addEventListener("load", () => {
-    modelViewer.play();
-  });
-</script>
+      const modelViewer = document.querySelector("model-viewer");
+      modelViewer.addEventListener("load", () => {
+        modelViewer.play();
+      });
+    </script>
   </body>
 </html>
