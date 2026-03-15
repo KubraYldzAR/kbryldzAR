@@ -1,26 +1,69 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
   <head>
-    <title>&lt;model-viewer&gt; template</title>
+    <title>İbrahim Ethem Akar - AR Experience</title>
     <meta charset="utf-8">
-    <meta name="description" content="&lt;model-viewer&gt; template">
+    <meta name="description" content="&lt;model-viewer&gt; AR Display">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="./styles.css" rel="stylesheet"/>
   </head>
   <body>
-    <model-viewer src="elf1.glb" scale="0.1 0.1 0.1" orientation="0deg 90deg 0deg" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" autoplay animation-name="*">
+    <model-viewer 
+      src="elf1.glb" 
+      ios-src="elf1.usdz"
+      scale="0.1 0.1 0.1" 
+      orientation="0deg 90deg 0deg" 
+      ar 
+      ar-modes="webxr scene-viewer quick-look" 
+      camera-controls 
+      tone-mapping="neutral" 
+      poster="poster.webp" 
+      shadow-intensity="1" 
+      autoplay 
+      animation-name="Animation" 
+      animation-crossfade-duration="0" 
+      ar-placement="floor">
+
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
+      </div>
+
+      <button slot="ar-button" id="ar-button">
+          Kendi alanınızda görüntüleyin
+      </button>
+
+      <div id="ar-prompt">
+          <img src="ar_hand_prompt.png">
       </div>
     </model-viewer>  
 
     <script src="script.js"></script>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    
     <script>
       const modelViewer = document.querySelector("model-viewer");
-      modelViewer.addEventListener("load", () => {
+
+      const startAnim = () => {
+        // Animasyon isimlerini (Animation veya Scene) zorlayarak oynatır
+        modelViewer.animationName = "Animation";
         modelViewer.play();
+        
+        setTimeout(() => {
+          if (modelViewer.paused) {
+            modelViewer.animationName = "Scene";
+            modelViewer.play();
+          }
+        }, 50);
+      };
+
+      modelViewer.addEventListener("ar-status", (event) => {
+        // Nesne zemine yerleştirildiğinde animasyonu başlatır
+        if (event.detail.status === "object-placed") {
+          startAnim();
+        }
       });
+
+      modelViewer.addEventListener("load", startAnim);
     </script>
   </body>
 </html>
