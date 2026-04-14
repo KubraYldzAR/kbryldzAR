@@ -4,7 +4,10 @@
     <title>Kübra Yıldız - AR Experience</title>
     <meta charset="utf-8">
     <meta name="description" content="<model-viewer> AR Display">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+    <link rel="preload" href="elf1.glb" as="fetch" type="model/gltf-binary" crossorigin="anonymous">
+
     <link type="text/css" href="./styles.css" rel="stylesheet"/>
     <style>
       /* FOTOĞRAF BUTONU STİLİ (BAŞLANGIÇTA GİZLİ) */
@@ -44,7 +47,11 @@
       animation-name="Animation" 
       loop
       animation-crossfade-duration="0" 
-      ar-placement="floor">
+      ar-placement="floor"
+      
+      loading="eager" 
+      crossorigin="anonymous"
+      reveal="auto">
 
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
